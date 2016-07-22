@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  	<meta charset="UTF-8">
+  	<title></title>
+    <link rel="stylesheet" href="/static/css/styles.css" type="text/css">
+  </head>
+  <body>
+    <div id="wrapper">
+    	<header>
+	    	<h2>Welcome, {{ session['name'] }}!</h2>
+			<h5>people poked you!</h5>
+			<a href="/users/logout">Logout</a>
+		</header>
+		<div id="body">
+			<div id="result">
+			{% for log in session['log'] %}
+				<p>{{ log[0] }}</p>
+			{% endfor %}
+			</div>
+			<div id="people">
+				<h3>People you may want to poke:</h3>
+				<form action="/poke_submit/{{ data[0]['id'] }}" method="POST">
+					<table>
+						<tr>
+							<th>Name</th>
+							<th>Alias</th>
+							<th>Email Address</th>
+							<th>Poke History</th>
+							<th>Action</th>
+						</tr>
+						{% for i in data %}
+		  					<tr>
+				  				<td>{{ i['name'] }}</td>
+				  				<td>{{ i['alias'] }}</td>
+				  				<td>{{ i['email'] }}</td>
+				  				<td>{{ session['poke'] }}</td>
+				  				<td><input type="hidden" name="poke" value="poke" /><input type="submit" name="poke" value="Poke!" /></td>
+		  					</tr>
+		  				{% endfor %}
+					</table>
+				</form>
+			</div>
+		</div>
+    </div>
+  </body>
+</html>
